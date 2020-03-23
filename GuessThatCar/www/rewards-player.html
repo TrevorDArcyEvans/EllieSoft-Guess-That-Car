@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guess That Car</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <link href="styles.css" type="text/css" rel="stylesheet" />
+  <link href="photoswipe.css" type="text/css" rel="stylesheet" />
+
+  <style>
+    img.thumb
+    {
+      width: 12em;
+      height: 12em;
+    }
+  </style>
+
+  <script type="text/javascript" src="klass.min.js"></script>
+  <script type="text/javascript" src="code.photoswipe-3.0.4.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="BrowserDetect.js"></script>
+  <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="common_images.js"></script>
+  <script type="text/javascript" src="AlphabetFiles.js"></script>
+  <script type="text/javascript" src="AlphabetTracer.js"></script>
+
+  <script>
+    // from:
+    //    http://stackoverflow.com/questions/901115/get-query-string-values-in-javascript
+    var UrlParams = {};
+    (function ()
+    {
+      var e,
+          a = /\+/g,  // Regex for replacing addition symbol with a space
+          r = /([^&=]+)=?([^&]*)/g,
+          d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+          q = window.location.search.substring(1);
+
+      while (e = r.exec(q))
+      {
+        UrlParams[d(e[1])] = d(e[2]);
+      }
+    })();
+
+    $(document).ready(function()
+    {
+      // level starts from 1 but array is zero based
+      var level = parseInt(UrlParams["level"]) - 1;
+
+      var imgList = ImageFiles[level];
+      for (var i = 0; i < imgList.length; i++)
+      {
+        var imgPath = ImagesDirectory + imgList[i].src;
+        var name = imgList[i].gallery;
+        $("#MainContent ul").append('<li><a href="' + imgPath + '"><img src="' + imgPath + '" class="thumb" alt="' + name + '" /></a></li>');
+      }
+    });
+  </script>
+</head>
+
+<body>
+<div id="MainContent">
+  <ul id="Gallery" class="gallery" />
+</div>
+
+<table style="width: 100%;" >
+  <tbody align="center">
+    <tr>
+      <td onclick="DoHome();"><div class="ps-home" style="display:table-cell;"></div></td>
+      <td onclick="DoMail();"><div class="ps-email" style="display:table-cell;"></div></td>
+      <td onclick="DoFacebook()"><div class="ps-facebook" style="display:table-cell;"></div></td>
+      <td onclick="DoTwitter();"><div class="ps-twitter" style="display:table-cell;"></div></td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
+
